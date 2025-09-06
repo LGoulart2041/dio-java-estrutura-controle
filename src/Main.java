@@ -1,46 +1,63 @@
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         /*gerarTabuada();*/
-        /*calcularIMC();*/
-        exibirParesEImpares();
+        calcularIMC();
+        /*exibirParesEImpares();*/
     }
 
     public static void gerarTabuada() {
         System.out.println("Informe a tabuada que você quer gerar: ");
-        int numeroTabuada = scanner.nextInt();
-        for (int i = 1; i < 10; i++) {
-            int resultado = i * numeroTabuada;
-            System.out.printf("%d * %d = %d\n", i, numeroTabuada, resultado);
+        int numeroTabuada;
+
+        if(scanner.hasNextInt()){
+            numeroTabuada = scanner.nextInt();
+            for (int i = 1; i < 10; i++) {
+                int resultado = i * numeroTabuada;
+                System.out.printf("%d * %d = %d\n", i, numeroTabuada, resultado);
+            }
+        } else {
+            System.out.println("Entrada inválida! Digite um número inteiro.");
         }
     }
 
     public static void calcularIMC() {
-        System.out.println("Informe o seu peso: ");
-        double peso = scanner.nextDouble();
+        double peso = lerDoublePositivo("Informe o seu peso: ");
 
-        System.out.println("Inforome a sua altura: ");
-        double altura = scanner.nextDouble();
+        double altura = lerDoublePositivo("Informe a sua altura: ");
 
-        scanner.close();
+        double imc = peso / (altura * altura);
 
-        final var _IMC = peso / (altura * altura);
+        System.out.printf("Seu IMC é: %.2f%n\n", imc);
 
-        System.out.printf("Seu IMC é: %.2f%n\n", _IMC);
+        if (imc <= 18.5) System.out.println("Abaixo do peso ideal");
+        else if (imc <= 24.9) System.out.println("Peso ideal");
+        else if (imc <= 29.9) System.out.println("Levemente acima do peso");
+        else if (imc <= 34.9) System.out.println("Obesidade Grau I");
+        else if (imc <= 39.9) System.out.println("Obesidade Grau II (Severa)");
+        else System.out.println("Obesidade III (Mórbida)");
 
-        if (_IMC <= 18.5) System.out.println("Abaixo do peso ideal");
-        else if (_IMC > 18.5 && _IMC <= 24.9) System.out.println("Peso ideal");
-        else if (_IMC > 24.9 && _IMC <= 29.9) System.out.println("Levemente acima do peso");
-        else if (_IMC > 29.9 && _IMC <= 34.9) System.out.println("Obesidade Grau I");
-        else if (_IMC > 34.9 && _IMC <= 39.9) System.out.println("Obesidade Grau II (Severa");
-        else System.out.println("Obesidade III (Mórbida");
+    }
 
+    private static double lerDoublePositivo(String mensagem){
+        double valor = -1;
+        while(valor <= 0) {
+            System.out.println(mensagem);
+            if (scanner.hasNextDouble()) {
+                valor = scanner.nextDouble();
+                if (valor <= 0) {
+                    System.out.println("O valor deve ser maior que zero.");
+                }
+            } else {
+                System.out.println("Entrada inválida! Digite um número");
+                scanner.next();
+            }
+        }
+        return valor;
     }
 
     public static void exibirParesEImpares(){
