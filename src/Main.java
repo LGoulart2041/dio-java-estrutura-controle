@@ -6,8 +6,8 @@ public class Main {
 
     public static void main(String[] args) {
         /*gerarTabuada();*/
-        calcularIMC();
-        /*exibirParesEImpares();*/
+        /*calcularIMC();*/
+        exibirParesEImpares();
     }
 
     public static void gerarTabuada() {
@@ -61,24 +61,44 @@ public class Main {
     }
 
     public static void exibirParesEImpares(){
-        System.out.println("Informe um número inteiro do início do intervalo: ");
-        int inicioIntervalo = scanner.nextInt();
+        int inicioIntervalo = lerInteiro("Informe o inicio do intervalo: ");
+        int finalIntervalo = lerInteiro("Informe o final do intervalo: ");
+        while(inicioIntervalo >= finalIntervalo) {
+            System.out.println("Final intervalo deve ser maior que o início");
+            finalIntervalo = lerInteiro("Informe o final do intervalo: ");
+        }
 
-        System.out.println("Informe um número inteiro que será o final do intervalo: ");
-        int finalIntervalo = scanner.nextInt();
 
-        boolean par = scanner.nextBoolean();
-        scanner.nextLine();
+        boolean exibirPares = lerBoolean("Deseja exibir pares? (true / false)");
+
+        System.out.println("\nNúmeros " + (exibirPares ? "pares" : "impares") +
+                            " no intervalo de " + inicioIntervalo + " até " + finalIntervalo + ":");
 
         for(int i = inicioIntervalo; i <= finalIntervalo; i++) {
-            if(par){
-                if(i % 2 == 0) {
+            if(exibirPares && i % 2 == 0){
                     System.out.println(i);
-                }
-            } else {
+            } else if(!exibirPares && i % 2 != 0){
                 System.out.println(i);
             }
         }
+    }
 
+    private static boolean lerBoolean(String mensagem) {
+        System.out.println(mensagem);
+        while(!scanner.hasNextBoolean()) {
+            System.out.println("Entrada inválida! Digite 'true' ou 'false': ");
+            scanner.next();
+        }
+
+        return scanner.nextBoolean();
+    }
+
+    private static int lerInteiro(String mensagem){
+        System.out.println(mensagem);
+        while(!scanner.hasNextInt()){
+            System.out.println("Entrada inválida! Digite um número inteiro: ");
+            scanner.next();
+        }
+        return scanner.nextInt();
     }
 }
