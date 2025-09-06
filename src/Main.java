@@ -8,7 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
         /*gerarTabuada();*/
-        calcularIMC();
+        /*calcularIMC();*/
+        exibirParesEImpares();
     }
 
     public static void gerarTabuada() {
@@ -39,6 +40,28 @@ public class Main {
         else if (_IMC > 29.9 && _IMC <= 34.9) System.out.println("Obesidade Grau I");
         else if (_IMC > 34.9 && _IMC <= 39.9) System.out.println("Obesidade Grau II (Severa");
         else System.out.println("Obesidade III (Mórbida");
+
+    }
+
+    public static void exibirParesEImpares(){
+        System.out.println("Informe um número inteiro do início do intervalo: ");
+        int inicioIntervalo = scanner.nextInt();
+
+        System.out.println("Informe um número inteiro que será o final do intervalo: ");
+        int finalIntervalo = scanner.nextInt();
+
+        boolean par = scanner.nextBoolean();
+        scanner.nextLine();
+
+        for(int i = inicioIntervalo; i <= finalIntervalo; i++) {
+            if(par){
+                if(i % 2 == 0) {
+                    System.out.println(i);
+                }
+            } else {
+                System.out.println(i);
+            }
+        }
 
     }
 }
